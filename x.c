@@ -2013,7 +2013,7 @@ int
 main(int argc, char *argv[])
 {
     int i;
-    char *colval;
+    char *colval, *themeName;
 	xw.l = xw.t = 0;
 	xw.isfixed = False;
 	xsetcursor(cursorshape);
@@ -2051,6 +2051,22 @@ main(int argc, char *argv[])
 	case 'n':
 		opt_name = EARGF(usage());
 		break;
+    case 's':
+        themeName = EARGF(usage());
+        if(strcmp(themeName, "gruv-light") == 0){
+            memcpy(colorname, gruvboxlighttheme, sizeof(gruvboxlighttheme));
+            defaultfg = 15;defaultbg = 0;defaultcs = 15;defaultrcs = 257;
+        } else if (strcmp(themeName, "gruv-dark") == 0){
+            memcpy(colorname, gruvboxdarktheme, sizeof(gruvboxdarktheme));
+            defaultfg = 15;defaultbg = 0;defaultcs = 15;defaultrcs = 257;
+        } else if (strcmp(themeName, "dracula") == 0){
+            memcpy(colorname, draculatheme, sizeof(draculatheme));
+            defaultfg = 257;defaultbg = 256;defaultcs = 257;defaultrcs = 257;
+        } else if (strcmp(themeName, "nord") == 0){
+            memcpy(colorname, nordtheme, sizeof(nordtheme));
+            defaultfg = 257;defaultbg = 256;defaultcs = 257;defaultrcs = 256;
+        }
+        break;
 	case 't':
 	case 'T':
 		opt_title = EARGF(usage());
