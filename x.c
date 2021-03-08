@@ -21,6 +21,11 @@ char *argv0;
 #include "st.h"
 #include "win.h"
 
+#include <sys/types.h>
+#include <pwd.h>
+#include <string.h>
+#include <yaml.h>
+
 /* types used in config.h */
 typedef struct {
 	uint mod;
@@ -2009,14 +2014,87 @@ usage(void)
 	    " [stty_args ...]\n", argv0, argv0);
 }
 
-int
-main(int argc, char *argv[])
-{
+typedef struct {
+    char* args;
+    float alpha;
+    char* class;
+    char* title;
+    char* font;
+    char* default_font_size;
+    char* colors[];
+    // allowaltscreen = 0;
+    // opt_io = EARGF(usage());
+    // opt_line = EARGF(usage());
+    // opt_name = EARGF(usage());
+    // opt_embed = EARGF(usage());
+    // xw.gm = XParseGeometry(EARGF(usage()), &xw.l, &xw.t, &cols, &rows);
+} Conf;
+
+Conf* readConf(char* filename) {
+  FILE* fh = fopen(filename, "r");
+  yaml_parser_t parser;
+  yaml_token_t token;
+  Conf* conf = malloc(sizeof(Conf));
+
+  if (!yaml_parser_initialize(&parser))
+    fputs("Failed to initialize parser!\n", stderr);
+  if (fh == NULL)
+    fputs("Failed to open file!\n", stderr);
+  yaml_parser_set_input_file(&parser, fh);
+
+  do {
+    int state = 0;
+    char** datap;
+    char* tk;
+
+    yaml_parser_scan(&parser, &token);
+    switch(token.type)
+    {
+    case YAML_KEY_TOKEN:     state = 0; break;
+    case YAML_VALUE_TOKEN:   state = 1; break;
+    case YAML_SCALAR_TOKEN:
+      tk = token.data.scalar.value;
+      if (state == 0) {
+        if (!strcmp(tk, "alpha"))
+            opt_alpha = &conf->alpha;
+        else if (!strcmp(tk, "class"))
+            opt_class = &conf->class;
+        else if (!strcmp(tk, "title"))
+            opt_title = &conf->title;
+        else if (!strcmp(tk, "font"))
+            opt_font = &conf->font;
+        else if (!strcmp(tk, "default_font_size"))
+		    defaultfontsize = strtod(&conf->default_font_size, NULL);
+        else if (!strcmp(tk, "colors"))
+            datap = &conf->colors;
+        else
+            printf("Unrecognised key: %s\n", tk);
+      } else
+        *datap = strdup(tk);
+      break;
+    default: break;
+    }
+    if (token.type != YAML_STREAM_END_TOKEN)
+      yaml_token_delete(&token);
+  } while (token.type != YAML_STREAM_END_TOKEN);
+  yaml_token_delete(&token);
+
+  yaml_parser_delete(&parser);
+  fclose(fh);
+  return conf;
+}
+
+int main(int argc, char *argv[]) {
     int i;
     char *colval;
 	xw.l = xw.t = 0;
 	xw.isfixed = False;
 	xsetcursor(cursorshape);
+
+    // Read config file
+    char *configFilePath = strcat(getpwuid(getuid())->pw_dir, "/.config/st-sr/config.yml");
+    readConf(configFilePath);
+    // Args
 
 	ARGBEGIN {
 	case 'a':
