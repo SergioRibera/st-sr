@@ -49,7 +49,7 @@ install: st
 	chmod 644 $(DESTDIR)$(MANPREFIX)/man1/st.1
 	tic -sx st.info
 	@echo Please see the README file regarding the terminfo entry of st.
-	cp -f st.desktop /opt/st-sr/
+	cp -pf st.desktop /opt/st-sr/
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/st
