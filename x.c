@@ -2000,12 +2000,15 @@ void
 usage(void)
 {
 	die("usage: %s [-aiv] [-c class] [-f font] [-g geometry]"
-	    " [-n name] [-o file]\n"
-	    "          [-T title] [-t title] [-w windowid]"
+	    " [-n name] [-o file]\n" 
+	    "          [-T title] [-t title] [-w windowid]\n"
+        "          [-s gruv-light, gruv-dark, nord, dracula] [-z defaultfontsize] [-A alpha]"
 	    " [[-e] command [args ...]]\n"
+        "\n"
 	    "       %s [-aiv] [-c class] [-f font] [-g geometry]"
-	    " [-n name] [-o file]\n"
-	    "          [-T title] [-t title] [-w windowid] -l line"
+	    " [-n name] [-o file]\n" 
+	    "          [-T title] [-t title] [-w windowid] -l line\n"
+        "          [-s gruv-light, gruv-dark, nord, dracula] [-z defaultfontsize] [-A alpha]"
 	    " [stty_args ...]\n", argv0, argv0);
 }
 
