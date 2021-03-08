@@ -19,7 +19,7 @@ static int borderpx = 2;
 static char *shell = "/bin/sh";
 char *utmp = NULL;
 /* scroll program: to enable use a string like "scroll" */
-char *scroll = NULL;
+char *scroll = "scroll";
 char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
 
 /* identification sequence returned in DA and DECID */
@@ -286,6 +286,13 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
+    { MODKEY|ShiftMask,     XK_Up,          zoom,           {.f = +1} },
+	{ MODKEY|ShiftMask,     XK_Down,        zoom,           {.f = -1} },
+	{ MODKEY|ShiftMask,     XK_K,           zoom,           {.f = +1} },
+	{ MODKEY|ShiftMask,     XK_J,           zoom,           {.f = -1} },
+	{ MODKEY|ShiftMask,     XK_plus,        zoom,           {.f = +1} },
+	{ MODKEY|ShiftMask,     XK_underscore,  zoom,           {.f = -1} },
+	{ MODKEY|ShiftMask,     XK_parenright,  zoomreset,      {.f =  0} },
 };
 
 /*
@@ -327,6 +334,9 @@ static uint ignoremod = Mod2Mask|XK_SWITCH_MOD;
  */
 static Key key[] = {
 	/* keysym           mask            string      appkey appcursor */
+    { XK_parenright, Mod1Mask|ShiftMask,"\033[41;6u",    0,    0},
+    { XK_underscore, Mod1Mask|ShiftMask,"\033[95;4u",    0,    0},
+    { XK_plus,       Mod1Mask|ShiftMask,"\033[43;4u",    0,    0},
 	{ XK_KP_Home,       ShiftMask,      "\033[2J",       0,   -1},
 	{ XK_KP_Home,       ShiftMask,      "\033[1;2H",     0,   +1},
 	{ XK_KP_Home,       XK_ANY_MOD,     "\033[H",        0,   -1},
