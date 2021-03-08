@@ -3,5 +3,5 @@ Type=Application
 Name=st
 Comment=simple-terminal forked SergioRibera emulator for X
 Icon=st
-Exec=st
+Exec=st -A 0.6 -e tmux
 Categories=System;TerminalEmulator
