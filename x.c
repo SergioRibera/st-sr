@@ -2058,6 +2058,10 @@ main(int argc, char *argv[])
 	case 'w':
 		opt_embed = EARGF(usage());
 		break;
+    case 'x':
+        cursorshape = atoi(EARGF(usage()));
+        xsetcursor(cursorshape);
+        break;
 	case 'v':
 		die("%s " VERSION "\n", argv0);
 		break;
