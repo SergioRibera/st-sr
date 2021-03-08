@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=st
+Comment=simple-terminal forked SergioRibera emulator for X
+Icon=st
+Exec=st
+Categories=System;TerminalEmulator
