@@ -2,6 +2,8 @@
 
 st is a simple terminal implementation for X. Read more about st on [Suckless' website](http://st.suckless.org).
 
+![Screenshot](https://user-images.githubusercontent.com/56278796/110402143-3aac2a80-8051-11eb-8484-1d8bf76e3f95.png)
+
 ### Highlight on some features
 * The background is set transparent. Adjust the transparency by editing `alpha` from `config.h` or set `-A` as argument with value in float between `0 - 1`
 * Predefined topics, selectable from the `-s` argument, having the options `"nord"`, `"dracula"`, `"gruv-light"` and `gruv-dark`
