@@ -264,19 +264,11 @@ static uint forcemousemod = ShiftMask;
  */
 static MouseShortcut mshortcuts[] = {
     /* mask                 button   function        argument      release alt */
-    { XK_ANY_MOD,           Button2, selpaste,       {.i = 0},           1 },
-    { XK_ANY_MOD,           Button4, ttysend,        {.s = "\033[5;2~"}, 0, -1 },
+    { XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
+    { ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
     { XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
-    { XK_ANY_MOD,           Button5, ttysend,        {.s = "\033[6;2~"}, 0, -1 },
+    { ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"} },
     { XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
-    { ShiftMask,            Button4, zoom,           {.f =  +1} },
-    { ShiftMask,            Button5, zoom,           {.f =  -1} },
-    { XK_NO_MOD,            Button4, ttysend,        {.s = "\033[5;2~"}, 0, -1 },
-    { XK_NO_MOD,            Button4, ttysend,        {.s = "\031"} },
-    { XK_NO_MOD,            Button5, ttysend,        {.s = "\033[6;2~"}, 0, -1 },
-    { XK_NO_MOD,            Button5, ttysend,        {.s = "\005"} },
-    { XK_ANY_MOD,           Button4, zoom,           {.f =  +1} },
-    { XK_ANY_MOD,           Button5, zoom,           {.f =  -1} },
 };
 
 /* Internal keyboard shortcuts. */
@@ -297,13 +289,15 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-    { ControlMask|ShiftMask,     XK_Up,          zoom,           {.f = +1} },
+        { ControlMask|ShiftMask,     XK_Up,          zoom,           {.f = +1} },
 	{ ControlMask|ShiftMask,     XK_Down,        zoom,           {.f = -1} },
 	{ ControlMask|ShiftMask,     XK_K,           zoom,           {.f = +1} },
 	{ ControlMask|ShiftMask,     XK_J,           zoom,           {.f = -1} },
 	{ ControlMask|ShiftMask,     XK_plus,        zoom,           {.f = +1} },
 	{ ControlMask|ShiftMask,     XK_underscore,  zoom,           {.f = -1} },
 	{ MODKEY|ShiftMask,     XK_parenright,  zoomreset,      {.f =  0} },
+    { XK_ANY_MOD,           Button4, kscrollup,      {.i = 1},		0, /* !alt */ -1 },
+    { XK_ANY_MOD,           Button5, kscrolldown,    {.i = 1},		0, /* !alt */ -1 },
 };
 
 /*
